@@ -1,0 +1,276 @@
+"""Exposes a URL that specifies the behavior of this scalar."""
+directive @specifiedBy(
+  """The URL that specifies the behavior of this scalar."""
+  url: String!
+) on SCALAR
+
+"""
+Indicates exactly one field must be supplied and this field must not be `null`.
+"""
+directive @oneOf on INPUT_OBJECT
+
+input CoinInput {
+  walletAddress: String
+  privateKey: String
+  coinName: String
+  coinSymbol: String
+}
+
+type CoinOutput {
+  walletAddress: String
+  privateKey: String
+  coinName: String
+  coinSymbol: String
+}
+
+type Comment {
+  id: ID
+  parent: ID
+  userId: ID
+  username: String
+  text: String
+  comments: ID
+  date: Date
+}
+
+input CommentInput {
+  parent: ID
+  userId: ID
+  username: String
+  text: String
+  date: Date
+}
+
+type CommentOutput {
+  id: ID
+  userId: ID
+  username: String
+  text: String
+  comments: ID
+  date: Date
+}
+
+type Comments {
+  id: ID
+  comments: [Comment]
+}
+
+type CommentsOutput {
+  id: ID
+  comments: [CommentOutput]
+}
+
+type Contact {
+  firstName: String
+  lastName: String
+}
+
+input ContactInput {
+  firstName: String
+  lastName: String
+}
+
+scalar Date
+
+type Friend {
+  id: ID
+  firstName: String
+  lastName: String
+  gender: Gender
+  language: String
+  age: Int
+  email: String
+  contacts: [Contact]
+}
+
+input FriendInput {
+  id: ID
+  firstName: String
+  lastName: String
+  gender: Gender
+  language: String
+  age: Int
+  email: String
+  contacts: [ContactInput]
+}
+
+enum Gender {
+  MALE
+  FEMALE
+  OTHER
+}
+
+type Mutation {
+  createUser(username: String, password: String, email: String): User
+  updateUser(id: ID!, input: UserInput): User
+  deleteUser(id: ID!): String
+  addPost(post: PostInput): PostOutput
+  addComment(comment: CommentInput): CommentOutput
+}
+
+type Order {
+  id: ID
+  user: ID
+  ken3Amount: Int
+  ken5Amount: Int
+  receiverName: String
+  receiverAddress: String
+  receiverPhone: String
+  totalPrice: Int
+  date: Date
+}
+
+input OrderInput {
+  user: ID
+  ken3Amount: Int
+  ken5Amount: Int
+  receiverName: String
+  receiverAddress: String
+  receiverPhone: String
+  totalPrice: Int
+  date: Date
+}
+
+type Post {
+  id: ID!
+  text: String!
+  date: Date!
+}
+
+input PostInput {
+  user: ID
+  username: String
+  keyword: String
+  text: String
+  image: String
+  date: Date
+}
+
+type PostOutput {
+  id: ID
+  user: ID
+  username: String
+  keyword: String
+  text: String
+  image: String
+  date: Date
+  comments: ID
+}
+
+input QAAnswer {
+  id: ID
+  userId: ID
+  question: ID
+  text: String
+  image: String
+  date: Date
+}
+
+type QAAnswerOutput {
+  id: ID
+  userId: ID
+  question: ID
+  text: String
+  image: String
+  scoresId: ID
+  date: Date
+  totalScore: Int
+  totalScorer: Int
+}
+
+input QAAnswerScore {
+  id: ID
+  userId: ID
+  score: Int
+  text: String
+  date: Date
+}
+
+type QAAnswerScoreOutput {
+  id: ID
+  userId: ID
+  username: String
+  score: Int
+  text: String
+  date: Date
+}
+
+input QAPost {
+  user: ID
+  text: String
+  image: String
+  date: Date
+}
+
+type QAQuestionOutput {
+  id: ID
+  user: ID
+  text: String
+  image: String
+  date: Date
+  answers: ID
+}
+
+type Query {
+  users: [User]
+  user(_id: ID!): User
+  queryPosts(keyword: String): [PostOutput]
+  queryPostsById(id: ID!): PostOutput
+  queryCommentsById(id: ID!): [CommentOutput]
+}
+
+enum Rating {
+  ONE
+  TWO
+  THREE
+}
+
+type Series {
+  id: ID
+  seriesName: String
+  year: Int
+  rating: Rating
+}
+
+input SeriesInput {
+  id: ID
+  seriesName: String
+  year: Int
+  rating: Rating
+}
+
+type User {
+  _id: ID!
+  firstName: String
+  lastName: String
+  username: String
+  gender: Gender
+  language: String
+  age: Int
+  email: String
+  password: String
+  address: String
+  phoneNumber: String
+  introduction: String
+  contacts: [Contact]
+  walletAddress: String
+  privateKey: String
+  coinName: String
+  coinSymbol: String
+}
+
+input UserInput {
+  id: ID
+  firstName: String
+  lastName: String
+  userName: String
+  gender: Gender
+  language: String
+  age: Int
+  email: String
+  password: String
+  address: String
+  phoneNumber: String
+  contacts: [ContactInput]
+}
+
